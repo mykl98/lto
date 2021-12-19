@@ -1,8 +1,8 @@
 <?php
 $servername = "localhost";
-	$username = "root";
-	$password = "";
-	$dbname = "lto";
+	$username = "u528264240_lto";
+	$password = "Skooltech_113012";
+	$dbname = "u528264240_lto";
 	$conn = new mysqli($servername, $username, $password, $dbname);
 
 function sanitize($input){
