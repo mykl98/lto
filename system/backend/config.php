@@ -1,9 +1,23 @@
 <?php
-$servername = "localhost";
+$whitelist = array('127.0.0.1', "::1");
+
+if(!in_array($_SERVER['REMOTE_ADDR'], $whitelist)){
+    $servername = "localhost";
 	$username = "u528264240_lto";
 	$password = "Skooltech_113012";
 	$dbname = "u528264240_lto";
 	$conn = new mysqli($servername, $username, $password, $dbname);
+	$baseUrl = "https://raptorapps.xyz/lto";
+}else{
+	$servername = "localhost";
+	$username = "root";
+	$password = "";
+	$dbname = "lto";
+	$conn = new mysqli($servername, $username, $password, $dbname);
+	$baseUrl = "http://localhost/lto";
+}
+
+date_default_timezone_set("Asia/Manila");
 
 function sanitize($input){
 	global $conn;
