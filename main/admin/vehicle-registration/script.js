@@ -173,6 +173,7 @@ function renderOwnerList(data){
 
 function addVehicle(){
     vehicleIdx = "";
+    $("#vehicle-image").attr("src", baseUrl + "/system/images/no-image-available.jpg");
     $("#add-edit-vehicle-modal").modal("show");
     $("#add-edit-vehicle-modal-title").text("Add New Vehicle");
     $("#add-edit-vehicle-modal-error").text("");
