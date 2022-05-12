@@ -5,19 +5,20 @@ include_once "../system/backend/config.php";
         $access = $_SESSION["access"];
         switch ($access){
             case "admin":
-                header("location:admin");
+                header("location:admin/dashboard");
                 exit();
                 break;
-            case "machine":
-                header("location:machine");
+            case "enforcer":
+                header("location:enforcer/dashboard");
                 exit();
                 break;
-            case "station":
-                header("location:station");
+            case "owner":
+                header("location:owner/dashboard");
                 exit();
                 break;
         }
     }else{
+        session_destroy();
         header("location:../index.php");
         exit();
     }

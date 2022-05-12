@@ -103,7 +103,7 @@ function renderVehicleList(data){
                                 <th>Violation Ticket</th>\
                                 <th>Owner</th>\
                                 <th>Status</th>\
-                                <th style="max-width:90px;min-width:90px;">Action</th>\
+                                <th style="max-width:120px;min-width:120px;">Action</th>\
                             </tr>\
                         </thead>\
                         <tbody>';
@@ -126,6 +126,7 @@ function renderVehicleList(data){
                         <td>'+status+'</td>\
                         <td>\
                             <button class="btn btn-warning btn-sm" onclick="viewViolation(\''+ list.idx +'\')"><i class="fa fa-eye"></i></button>\
+                            <button class="btn btn-dark btn-sm" onclick="viewQRCode(\''+ list.idx +'\')"><i class="fa fa-qrcode"></i></button>\
                             <button class="btn btn-success btn-sm" onclick="editVehicle(\''+ list.idx +'\')"><i class="fa fa-pencil"></i></button>\
                             <button class="btn btn-danger btn-sm" onclick="deleteVehicle(\''+ list.idx +'\')"><i class="fas fa-trash"></i></button>\
                         </td>\
@@ -352,6 +353,44 @@ function renderViolationList(data){
     $("#violation-table-container").html(markUp);
     $("#violation-table").DataTable();
     $("#view-violation-modal").modal("show");
+}
+
+function viewQRCode(idx){
+    $.ajax({
+		type: "POST",
+		url: "get-qr-code.php",
+		dataType: 'html',
+		data: {
+			idx:idx
+		},
+		success: function(response){
+			var resp = response.split("*_*");
+			if(resp[0] == "true"){
+				renderQRCode(resp[1]);
+			}else if(resp[0] == "false"){
+				alert(resp[1]);
+			} else{
+				alert(response);
+			}
+		}
+	});
+}
+
+function renderQRCode(data){
+    var lists = JSON.parse(data);
+    var qr;
+    lists.forEach(function(list){
+        qr = list.qr;
+    })
+    var qrCode = (function() {
+        qr = new QRious({
+            element: document.getElementById('qr_code'),
+            size: 400,
+            value: qr
+        });
+    })();
+
+    $("#view-qr-modal").modal("show");
 }
 
 var vehicleImage;

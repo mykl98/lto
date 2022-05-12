@@ -230,6 +230,23 @@
         </div>
     </div>
 
+    <!-- View QR Modal -->
+    <div class="modal fade" id="view-qr-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Vehicle's QR Code</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <canvas id="qr_code"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Logout Modal -->
     <div class="modal fade" id="logout-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -266,6 +283,8 @@
 <script src="<?php echo $baseUrl;?>/system/plugin/datatables/js/dataTables.bootstrap4.min.js"></script>
 <!--Croppie-->
 <script src="<?php echo $baseUrl;?>/system/plugin/croppie/js/croppie.js"></script>
+<!--QR Code Generator-->
+<script src="<?php echo $baseUrl;?>/system/plugin/qr/qr.min.js"></script>
 
 <!-- Page Level Script -->
 <script src="script.js"></script>
