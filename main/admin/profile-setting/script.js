@@ -5,6 +5,16 @@ $(document).ready(function(){
     getProfileSettings();
 })
 
+$(document).on('shown.lte.pushmenu', function(){
+    $("#global-department-name").show();
+    $("#global-client-logo").attr("width","100px");
+})
+
+$(document).on('collapsed.lte.pushmenu', function(){
+    $("#global-department-name").hide();
+    $("#global-client-logo").attr("width","40px");
+})
+
 function getProfileSettings(){
     $.ajax({
         type: "POST",

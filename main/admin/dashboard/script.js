@@ -44,10 +44,9 @@ function getDashboardDetails(){
 function renderDashboardDetails(data){
     var lists = JSON.parse(data);
     lists.forEach(function(list){
-        $("#dashboard-account-number").text(list.account);
-        $("#dashboard-department-number").text(list.department);
-        $("#dashboard-document-number").text(list.document);
-        $("#dashboard-log-number").text(list.log);
+        $("#owner-count").text(list.owner);
+        $("#vehicle-count").text(list.vehicle);
+        $("#ticket-count").text(list.ticket);
     })
 }
 

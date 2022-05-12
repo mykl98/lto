@@ -2,58 +2,46 @@
     if($_POST){
         include_once "../../../system/backend/config.php";
 
-        function getAccountCount(){
+        function getVehicleOwnerCount(){
             global $conn;
-            $table = "account";
+            $count = 0;
+            $table = "owner";
             $sql = "SELECT idx FROM `$table`";
             if($result=mysqli_query($conn,$sql)){
-                return mysqli_num_rows($result);
-            }else{
-                return "System Error!";
+                $count = mysqli_num_rows($result);
             }
+            return $count;
         }
 
-        function getDepartmentCount(){
+        function getVehicleCount(){
             global $conn;
-            $table = "departments";
+            $count = 0;
+            $table = "vehicle";
             $sql = "SELECT idx FROM `$table`";
             if($result=mysqli_query($conn,$sql)){
-                return mysqli_num_rows($result);
-            }else{
-                return "System Error!";
+                $count = mysqli_num_rows($result);
             }
+            return $count;
         }
 
-        function getDocumentCount(){
+        function getViolationTicketCount(){
             global $conn;
-            $table = "document";
+            $count = 0;
+            $table = "ticket";
             $sql = "SELECT idx FROM `$table`";
             if($result=mysqli_query($conn,$sql)){
-                return mysqli_num_rows($result);
-            }else{
-                return "System Error!";
+                $count = mysqli_num_rows($result);
             }
-        }
-
-        function getLogCount(){
-            global $conn;
-            $table = "system-log";
-            $sql = "SELECT idx FROM `$table`";
-            if($result=mysqli_query($conn,$sql)){
-                return mysqli_num_rows($result);
-            }else{
-                return "System Error!";
-            }
+            return $count;
         }
 
         function getDashboardDetails(){
             global $vaccinee,$first,$complete;
             $data = array();
             $value = new \StdClass();
-            $value -> account = getAccountCount();
-            $value -> department = getDepartmentCount();
-            $value -> document = getDocumentCount();
-            $value -> log = getLogCount();
+            $value -> owner = getVehicleOwnerCount();
+            $value -> vehicle = getVehicleCount();
+            $value -> ticket = getViolationTicketCount();
             array_push($data,$value);
             $data = json_encode($data);
             return "true*_*" . $data;

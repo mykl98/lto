@@ -95,7 +95,48 @@
             <!-- Main content -->
             <section class="content">
                 <div class="container-fluid">
-
+                     <!-- Small boxes (Stat box) -->
+                    <div class="row">
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-success">
+                                <div class="inner">
+                                    <h3 id="owner-count">0</h3>
+                                    <p>Vehicle Owner</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <a href="../manage-vehicleowner" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-danger">
+                                <div class="inner">
+                                    <h3 id="vehicle-count">0</h3>
+                                    <p>Vehicle Count</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-car"></i>
+                                </div>
+                                <a href="../vehicle-registration" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-info">
+                                <div class="inner">
+                                    <h3 id="ticket-count">0</h3>
+                                    <p>Violation Ticket Count</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-barcode"></i>
+                                </div>
+                                <a href="../settle-violation" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
                 </div><!-- /.container-fluid -->
             </section><!-- /.content -->
         </div><!-- /.content-wrapper -->
