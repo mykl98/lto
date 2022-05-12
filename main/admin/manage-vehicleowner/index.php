@@ -17,7 +17,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Admin | Manage Account</title>
+    <title>Admin | Manage Vehicle Owner</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
@@ -81,7 +81,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Manage Accounts</h1>
+                            <h1 class="m-0 text-dark">Manage Vehicle Owner</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -148,8 +148,8 @@
                             <input type="text" class="form-control" id="vehicleowner-username">
                         </div>
                         <div class="form-group">
-                            <label for="account-status" class="col-form-label">Status:</label>
-                            <select class="form-control" id="account-status">
+                            <label for="vehicleowner-status" class="col-form-label">Status:</label>
+                            <select class="form-control" id="vehicleowner-status">
                                 <option value="active">Active</option>
                                 <option value="inactive">Inactive</option>
                             </select>

@@ -1,7 +1,7 @@
 $(document).ready(function() {
     setTimeout(function(){
-        $("#manage-club-menu").attr("href","#");
-        $("#manage-club-menu").addClass("active");
+        $("#manage-violation-menu").attr("href","#");
+        $("#manage-violation-menu").addClass("active");
     },100)
 })
 
@@ -19,9 +19,9 @@ $(".modal").on("hidden.bs.modal",function(){
     $(this).find("form").trigger("reset");
 })
 
-getClubList();
+getViolationList();
 getUserDetails();
-var clubIdx;
+var violationIdx;
 var baseUrl = $("#base-url").text();
 
 function getUserDetails(){
@@ -57,10 +57,10 @@ function renderUserDetails(data){
 
 }
 
-function getClubList(){
+function getViolationList(){
     $.ajax({
 		type: "POST",
-		url: "get-club-list.php",
+		url: "get-violation-list.php",
 		dataType: 'html',
 		data: {
 			dummy:"dummy"
@@ -68,7 +68,7 @@ function getClubList(){
 		success: function(response){
 			var resp = response.split("*_*");
 			if(resp[0] == "true"){
-				renderClubList(resp[1]);
+				renderViolationList(resp[1]);
 			}else if(resp[0] == "false"){
 				alert(resp[1]);
 			} else{
@@ -78,71 +78,72 @@ function getClubList(){
 	});
 }
 
-function renderClubList(data){
+function renderViolationList(data){
     var lists = JSON.parse(data);
-    var markUp = '<table id="club-table" class="table table-striped table-bordered table-sm">\
+    var markUp = '<table id="violation-table" class="table table-striped table-bordered table-sm">\
                         <thead>\
                             <tr>\
-                                <th>Logo</th>\
-                                <th>Name</th>\
+                                <th>Code</th>\
+                                <th>Description</th>\
+                                <th>Penalty Amount</th>\
                                 <th>Status</th>\
                                 <th style="max-width:50px;min-width:50px;">Action</th>\
                             </tr>\
                         </thead>\
                         <tbody>';
     lists.forEach(function(list){
-        var image = list.image;
-        if(image == ""){
-            image = baseUrl + "../../../system/images/blank-profile.png";
-        }
         markUp += '<tr>\
-                        <td>\
-                            <img src="'+image+'" class="rounded" width="40">\
-                        </td>\
-                        <td>'+list.name+'</td>\
+                        <td>'+list.code+'</td>\
+                        <td>'+list.description+'</td>\
+                        <td>'+list.amount+'</td>\
                         <td>'+list.status+'</td>\
                         <td>\
-                            <button class="btn btn-success btn-sm" onclick="editClub(\''+ list.idx +'\')"><i class="fa fa-pencil"></i></button>\
-                            <button class="btn btn-danger btn-sm" onclick="deleteClub(\''+ list.idx +'\')"><i class="fas fa-trash"></i></button>\
+                            <button class="btn btn-success btn-sm" onclick="editViolation(\''+ list.idx +'\')"><i class="fa fa-pencil"></i></button>\
+                            <button class="btn btn-danger btn-sm" onclick="deleteViolation(\''+ list.idx +'\')"><i class="fas fa-trash"></i></button>\
                         </td>\
                    </tr>';
     })
     markUp += '</tbody></table>';
-    $("#club-table-container").html(markUp);
-    $("#club-table").DataTable();
+    $("#violation-table-container").html(markUp);
+    $("#violation-table").DataTable();
 }
 
-function addClub(){
-    clubIdx = "";
-    $("#add-edit-club-modal").modal("show");
-    $("#add-edit-club-modal-error").text("");
-    $("#club-image").attr("src",baseUrl + "/system/images/blank-profile.png");
+function addViolation(){
+    violationIdx = "";
+    $("#add-edit-violation-modal").modal("show");
+    $("#add-edit-violation-modal-error").text("");
 }
 
-function saveClub(){
-    var name = $("#club-name").val();
-    var image = $("#club-image").attr("src");
-    var status = $("#club-status").val();
-
+function saveViolation(){
+    var code = $("#violation-code").val();
+    var description = $("#violation-description").val();
+    var amount = $("#violation-amount").val();
+    var status = $("#violation-status").val();
     var error = "";
-    if(name == "" || name == undefined){
-        error = "*Name field should not be empty.";
+
+    if(code == "" || code == undefined){
+        error = "*Code field should not be empty!";
+    }else if(description == "" || description == undefined){
+        error = "*Description field should not be empty!";
+    }else if(amount == "" || amount == undefined){
+        error = "*Penalty amount field should not be empty!";
     }else{
         $.ajax({
             type: "POST",
-            url: "save-club.php",
+            url: "save-violation.php",
             dataType: 'html',
             data: {
-                idx:clubIdx,
-                name:name,
-                image:image,
+                idx:violationIdx,
+                code:code,
+                description:description,
+                amount:amount,
                 status:status
             },
             success: function(response){
                 var resp = response.split("*_*");
                 if(resp[0] == "true"){
-                    $("#add-edit-club-modal").modal("hide");
-                    getClubList();
+                    $("#add-edit-violation-modal").modal("hide");
+                    getViolationList();
                 }else if(resp[0] == "false"){
                     alert(resp[1]);
                 } else{
@@ -152,22 +153,22 @@ function saveClub(){
         });
     }
 
-    $("#add-edit-club-modal-error").text(error);
+    $("#add-edit-violation-modal-error").text(error);
 }
 
-function editClub(idx){
-    clubIdx = idx;
+function editViolation(idx){
+    violationIdx = idx;
     $.ajax({
         type: "POST",
-        url: "get-club-detail.php",
+        url: "get-violation-detail.php",
         dataType: 'html',
         data: {
-            idx:idx
+            idx:violationIdx
         },
         success: function(response){
             var resp = response.split("*_*");
             if(resp[0] == "true"){
-                renderEditClub(resp[1]);
+                renderEditViolation(resp[1]);
             }else if(resp[0] == "false"){
                 alert(resp[1]);
             } else{
@@ -177,23 +178,24 @@ function editClub(idx){
     });
 }
 
-function renderEditClub(data){
+function renderEditViolation(data){
     var lists = JSON.parse(data);
     lists.forEach(function(list){
-        $("#club-name").val(list.name);
-        $("#club-image").attr("src",list.image);
-        $("#club-status").val(list.status);
+        $("#violation-code").val(list.code);
+        $("#violation-description").val(list.description);
+        $("#violation-amount").val(list.amount);
+        $("#violation-status").val(list.status);
     })
-    $("#add-edit-club-modal-title").text("Edit Club Details");
-    $("#add-edit-club-modal-error").text("");
-    $("#add-edit-club-modal").modal("show");
+    $("#add-edit-violation-modal-title").text("Edit Violation Details");
+    $("#add-edit-violation-modal-error").text("");
+    $("#add-edit-violation-modal").modal("show");
 }
 
-function deleteClub(idx){
-    if(confirm("Are you sure you want to delete this Club?\nThis Action cannot be undone!")){
+function deleteViolation(idx){
+    if(confirm("Are you sure you want to delete this Violation Code?\nThis Action cannot be undone!")){
         $.ajax({
             type: "POST",
-            url: "delete-club.php",
+            url: "delete-violation.php",
             dataType: 'html',
             data: {
                 idx:idx
@@ -201,7 +203,7 @@ function deleteClub(idx){
             success: function(response){
                 var resp = response.split("*_*");
                 if(resp[0] == "true"){
-                    getClubList();
+                    getViolationList();
                 }else if(resp[0] == "false"){
                     alert(resp[1]);
                 } else{
@@ -210,44 +212,6 @@ function deleteClub(idx){
             }
         });
     }
-}
-
-var clubLogo;
-var reader;
-var loadClubLogo = function(event){
-	reader = new FileReader();
-	reader.onload = function(e) {
-		$('#club-logo-editor-buffer').attr('src', e.target.result);
-
-        if(clubLogo){
-            clubLogo.destroy();
-        }
-
-		clubLogo = new Croppie($('#club-logo-editor-buffer')[0], {
-			viewport: { width: 300, height: 300,type:'square'},
-			boundary: { width: 400, height: 400 },
-            enableOrientation: true
-		});
-
-        $('#club-logo-editor-modal').modal('show');
-		$('#club-logo-editor-ok-btn').on('click', function() {
-			clubLogo.result('base64').then(function(dataImg) {
-				var data = [{ image: dataImg }, { name: 'myimage.jpg' }];
-				$('#club-image').attr('src', dataImg);
-			});
-		});
-	}
-	reader.readAsDataURL(event.target.files[0]);
-}
-
-function clubLogoEditorCancel(){
-	if(clubLogo){
-		clubLogo.destroy();
-    }
-}
-
-function clubLogoEditorRotate(){
-	clubLogo.rotate(-90);
 }
 
 function logout(){

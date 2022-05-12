@@ -21,7 +21,7 @@ $(".modal").on("hidden.bs.modal",function(){
 
 getVehicleOwnerList();
 getUserDetails();
-var vehicleOwnerIdx;
+var violationIdx;
 var baseUrl = $("#base-url").text();
 
 function getUserDetails(){
@@ -122,7 +122,7 @@ function saveVehicleOwner(){
     var address = $("#vehicleowner-address").val();
     var phone = $("#vehicleowner-phone").val();
     var username = $("#vehicleowner-username").val();
-    var status = $("#account-status").val();
+    var status = $("#vehicleowner-status").val();
     var error = "";
 
     if(name == "" || name == undefined){

@@ -2,9 +2,9 @@
     if($_POST){
         include_once "../../../system/backend/config.php";
 
-        function deleteClub($idx){
+        function deleteViolation($idx){
             global $conn;
-            $table = "club";
+            $table = "violation";
             $sql = "DELETE FROM `$table` WHERE idx='$idx'";
             if(mysqli_query($conn,$sql)){
                 return "true*_*";
@@ -16,7 +16,7 @@
         session_start();
         if($_SESSION["isLoggedIn"] == "true"){
             $idx = sanitize($_POST["idx"]);
-            echo deleteClub($idx);
+            echo deleteViolation($idx);
         }else{
             echo "Access Denied!";
         }

@@ -17,7 +17,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Admin | Manage Club</title>
+    <title>Admin | Manage Violation Code</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
@@ -84,12 +84,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Manage Clubs</h1>
+                            <h1 class="m-0 text-dark">Manage Violation Codes</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Manage Clubs</li>
+                                <li class="breadcrumb-item active">Manage Violation Codes</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -101,11 +101,11 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Club List</h3>
-                                <button class="btn btn-sm bg-success float-right" onclick="addClub()"><span class="fa fa-plus"></span> Add Club</button>
+                                <h3 class="card-title">Violation Code List</h3>
+                                <button class="btn btn-sm bg-success float-right" onclick="addViolation()"><span class="fa fa-plus"></span> Add Violation Code</button>
                             </div>
                             <div class="card-body">
-                                <div id="club-table-container"></div>
+                                <div id="violation-table-container"></div>
                             </div>
                         </div>
                     </div>
@@ -123,38 +123,42 @@
     <!-- ./wrapper -->
 
     <!-- Modals -->
-    <div class="modal fade" id="add-edit-club-modal">
+    <div class="modal fade" id="add-edit-violation-modal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="add-edit-club-modal-title">Create New Club</h5>
+                    <h5 class="modal-title" id="add-edit-violation-modal-title">Create New Violation Code</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div align="center">
-                            <input type="file" accept="image/*" onchange="loadClubLogo(event)" style="display:none;" id="load-club-logo-btn">
-                            <img id="club-image" class="rounded" width="150" src="<?php echo $baseUrl;?>/system/images/blank-profile.png" onclick="$('#load-club-logo-btn').click()">
+                        <div class="form-group">
+                            <label for="violation-code" class="col-form-label">Code:</label>
+                            <input type="text" class="form-control" id="violation-code">
                         </div>
                         <div class="form-group">
-                            <label for="club-name" class="col-form-label">Name:</label>
-                            <input type="text" class="form-control" id="club-name">
+                            <label for="violation-description" class="col-form-label">Description:</label>
+                            <textarea class="form-control" id="violation-description"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="club-status" class="col-form-label">Status:</label>
-                            <select class="form-control" id="club-status">
+                            <label for="violation-amount" class="col-form-label">Penalty Amount:</label>
+                            <input type="number" class="form-control" id="violation-amount">
+                        </div>
+                        <div class="form-group">
+                            <label for="violation-status" class="col-form-label">Status:</label>
+                            <select class="form-control" id="violation-status">
                                 <option value="active">Active</option>
                                 <option value="inactive">Inactive</option>
                             </select>
                         </div>
                     </form>
-                    <p id="add-edit-club-modal-error" class="text-danger font-italic small"></p>
+                    <p id="add-edit-violation-modal-error" class="text-danger font-italic small"></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="saveClub()">Save</button>
+                    <button type="button" class="btn btn-primary" onclick="saveViolation()">Save</button>
                 </div>
             </div>
         </div>
