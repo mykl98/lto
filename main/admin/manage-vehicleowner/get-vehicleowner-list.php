@@ -2,17 +2,21 @@
     if($_POST){
         include_once "../../../system/backend/config.php";
 
-        function getClubList(){
+        function getVehicleOwnerList(){
             global $conn;
             $data = array();
-            $table = "club";
-            $sql = "SELECT * FROM `$table` WHERE status='active' ORDER by name";
+            $table = "owner";
+            $sql = "SELECT * FROM `$table` ORDER by idx DESC";
             if($result=mysqli_query($conn,$sql)){
                 if(mysqli_num_rows($result) > 0){
                     while($row=mysqli_fetch_array($result)){
                         $value = new \StdClass();
                         $value -> idx = $row["idx"];
                         $value -> name = $row["name"];
+                        $value -> address = $row["address"];
+                        $value -> phone = $row["phone"];
+                        $value -> username = $row["username"];
+                        $value -> status = $row["status"];
                         array_push($data,$value);
                     }
                 }
@@ -25,7 +29,7 @@
 
         session_start();
         if($_SESSION["isLoggedIn"] == "true"){
-            echo getClubList();
+            echo getVehicleOwnerList();
         }else{
             echo "Access Denied!";
         }

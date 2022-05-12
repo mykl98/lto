@@ -44,11 +44,7 @@ function saveProfileSettings(){
     userName = $("#profile-settings-name").val();
     userUsername = $("#profile-settings-username").val();
 
-    if(!userImage.indexOf("data:image/png;base64") >= 0){
-        userImage = "";
-    }
-
-    var error;
+    var error = "";
     if(userName == "" || userName == undefined){
         error = "*Name field should not be empty.";
     }else if(userUsername == "" || userUsername == undefined){

@@ -1,7 +1,7 @@
 $(document).ready(function() {
     setTimeout(function(){
-        $("#manage-account-menu").attr("href","#");
-        $("#manage-account-menu").addClass("active");
+        $("#manage-vehicleowner-menu").attr("href","#");
+        $("#manage-vehicleowner-menu").addClass("active");
     },100)
 })
 
@@ -19,8 +19,9 @@ $(".modal").on("hidden.bs.modal",function(){
     $(this).find("form").trigger("reset");
 })
 
-getAccountList();
+getVehicleOwnerList();
 getUserDetails();
+var vehicleOwnerIdx;
 var baseUrl = $("#base-url").text();
 
 function getUserDetails(){
@@ -56,10 +57,10 @@ function renderUserDetails(data){
 
 }
 
-function getAccountList(){
+function getVehicleOwnerList(){
     $.ajax({
 		type: "POST",
-		url: "get-account-list.php",
+		url: "get-vehicleowner-list.php",
 		dataType: 'html',
 		data: {
 			dummy:"dummy"
@@ -67,7 +68,7 @@ function getAccountList(){
 		success: function(response){
 			var resp = response.split("*_*");
 			if(resp[0] == "true"){
-				renderAccountList(resp[1]);
+				renderVehicleOwnerList(resp[1]);
 			}else if(resp[0] == "false"){
 				alert(resp[1]);
 			} else{
@@ -77,14 +78,15 @@ function getAccountList(){
 	});
 }
 
-function renderAccountList(data){
+function renderVehicleOwnerList(data){
     var lists = JSON.parse(data);
-    var markUp = '<table id="manage-account-table" class="table table-striped table-bordered table-sm">\
+    var markUp = '<table id="vehicleowner-table" class="table table-striped table-bordered table-sm">\
                         <thead>\
                             <tr>\
                                 <th>Name</th>\
+                                <th>Address</th>\
+                                <th>Phone Number</th>\
                                 <th>Username</th>\
-                                <th>Access</th>\
                                 <th>Status</th>\
                                 <th style="max-width:50px;min-width:50px;">Action</th>\
                             </tr>\
@@ -93,56 +95,62 @@ function renderAccountList(data){
     lists.forEach(function(list){
         markUp += '<tr>\
                         <td>'+list.name+'</td>\
+                        <td>'+list.address+'</td>\
+                        <td>'+list.phone+'</td>\
                         <td>'+list.username+'</td>\
-                        <td>'+list.access+'</td>\
                         <td>'+list.status+'</td>\
                         <td>\
-                            <button class="btn btn-success btn-sm" onclick="editAccount(\''+ list.idx +'\')"><i class="fa fa-pencil"></i></button>\
-                            <button class="btn btn-danger btn-sm" onclick="deleteAccount(\''+ list.idx +'\')"><i class="fas fa-trash"></i></button>\
+                            <button class="btn btn-success btn-sm" onclick="editVehicleOwner(\''+ list.idx +'\')"><i class="fa fa-pencil"></i></button>\
+                            <button class="btn btn-danger btn-sm" onclick="deleteVehicleOwner(\''+ list.idx +'\')"><i class="fas fa-trash"></i></button>\
                         </td>\
                    </tr>';
     })
     markUp += '</tbody></table>';
-    $("#manage-account-table-container").html(markUp);
-    $("#manage-account-table").DataTable();
+    $("#vehicleowner-table-container").html(markUp);
+    $("#vehicleowner-table").DataTable();
 }
 
-function addAccount(){
-    manageAccountIdx = "";
-    $("#add-edit-account-modal").modal("show");
-    $("#save-account-error").text("");
+function addVehicleOwner(){
+    vehicleOwnerIdx = "";
+    $("#add-edit-vehicleowner-modal").modal("show");
+    $("#add-edit-vehicleowner-modal-title").text("Create New Vehicle Owner");
+    $("#add-edit-vehicleowner-modal-error").text("");
 }
 
-function saveAccount(){
-    var name = $("#account-name").val();
-    var username = $("#account-username").val();
-    var access = $("#account-access").val();
+function saveVehicleOwner(){
+    var name = $("#vehicleowner-name").val();
+    var address = $("#vehicleowner-address").val();
+    var phone = $("#vehicleowner-phone").val();
+    var username = $("#vehicleowner-username").val();
     var status = $("#account-status").val();
-
     var error = "";
+
     if(name == "" || name == undefined){
         error = "*Name field should not be empty.";
+    }else if(address == "" || address == undefined){
+        error = "*Address field should not be empty.";
+    }else if(phone == "" || phone == undefined){
+        error = "*Phone Number field should not be empty.";
     }else if(username == "" || username == undefined){
         error = "*Username field should not be empty.";
-    }else if(access == "" || access == undefined){
-        error = "*Please select access level!";
     }else{
         $.ajax({
             type: "POST",
-            url: "save-account.php",
+            url: "save-vehicleowner.php",
             dataType: 'html',
             data: {
-                idx:manageAccountIdx,
+                idx:vehicleOwnerIdx,
                 name:name,
+                address:address,
+                phone:phone,
                 username:username,
-                access:access,
                 status:status
             },
             success: function(response){
                 var resp = response.split("*_*");
                 if(resp[0] == "true"){
-                    $("#add-edit-account-modal").modal("hide");
-                    getAccountList();
+                    $("#add-edit-vehicleowner-modal").modal("hide");
+                    getVehicleOwnerList();
                 }else if(resp[0] == "false"){
                     alert(resp[1]);
                 } else{
@@ -152,22 +160,22 @@ function saveAccount(){
         });
     }
 
-    $("#save-account-error").text(error);
+    $("#add-edit-vehicleowner-modal-error").text(error);
 }
 
-function editAccount(idx){
-    manageAccountIdx = idx;
+function editVehicleOwner(idx){
+    vehicleOwnerIdx = idx;
     $.ajax({
         type: "POST",
-        url: "get-account-detail.php",
+        url: "get-vehicleowner-detail.php",
         dataType: 'html',
         data: {
-            idx:idx
+            idx:vehicleOwnerIdx
         },
         success: function(response){
             var resp = response.split("*_*");
             if(resp[0] == "true"){
-                renderEditAccount(resp[1]);
+                renderEditVehicleOwner(resp[1]);
             }else if(resp[0] == "false"){
                 alert(resp[1]);
             } else{
@@ -177,35 +185,34 @@ function editAccount(idx){
     });
 }
 
-function renderEditAccount(data){
+function renderEditVehicleOwner(data){
     var lists = JSON.parse(data);
 
     lists.forEach(function(list){
-        $("#account-name").val(list.name);
-        $("#account-username").val(list.username);
-        $("#account-access").val(list.access);
-        $("#account-status").val(list.status);
-
-        $("#add-edit-account-modal-title").text("Edit " + list.name + "'s Account Details");
+        $("#vehicleowner-name").val(list.name);
+        $("#vehicleowner-address").val(list.address);
+        $("#vehicleowner-phone").val(list.phone);
+        $("#vehicleowner-username").val(list.username);
+        $("#cehicleowner-status").val(list.status);
     })
-    $("#save-account-error").text("");
-    $("#add-edit-account-modal").modal("show");
+    $("#add-edit-vehicleowner-modal-title").text("Edit Vehicle Owner Details");
+    $("#add-edit-vehicleowner-modal-error").text("");
+    $("#add-edit-vehicleowner-modal").modal("show");
 }
 
-function deleteAccount(idx,name){
-    if(confirm("Are you sure you want to delete this Account?\nThis Action cannot be undone!")){
+function deleteVehicleOwner(idx){
+    if(confirm("Are you sure you want to delete this Vehicle Owner?\nThis Action cannot be undone!")){
         $.ajax({
             type: "POST",
-            url: "delete-account.php",
+            url: "delete-vehicleowner.php",
             dataType: 'html',
             data: {
-                idx:idx,
-                name:name
+                idx:idx
             },
             success: function(response){
                 var resp = response.split("*_*");
                 if(resp[0] == "true"){
-                    getAccountList();
+                    getVehicleOwnerList();
                 }else if(resp[0] == "false"){
                     alert(resp[1]);
                 } else{

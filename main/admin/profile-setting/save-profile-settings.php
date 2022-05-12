@@ -19,8 +19,12 @@
             $image = sanitize($_POST["image"]);
             $name = sanitize($_POST["name"]);
             $username = sanitize($_POST["username"]);
-
-            echo saveProfileSettings($idx,$image,$name,$username);
+            //saveLog($image);
+            if(!empty($image)&&!empty($name)&&!empty($username)){
+                echo saveProfileSettings($idx,$image,$name,$username);
+            }else{
+                echo "Network Error!";
+            }
         }else{
             echo "Access Denied!";
         }

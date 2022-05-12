@@ -131,9 +131,6 @@
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div align="center">
-                            <img id="account-image" class="rounded-circle" width="150" src="<?php echo $baseUrl;?>/system/images/blank-profile.png">
-                        </div>
                         <div class="form-group">
                             <label for="account-name" class="col-form-label">Name:</label>
                             <input type="text" class="form-control" id="account-name">
@@ -146,7 +143,8 @@
                             <label for="account-access" class="col-form-label">Access:</label>
                             <select class="form-control" id="account-access" onchange="accessChange()">
                                 <option value="admin">Admin</option>
-                                <option value="president">President</option>
+                                <option value="staff">Staff</option>
+                                <option value="enforcer">Enforcer</option>
                             </select>
                         </div>
                         <div id="club-select-container"></div>
