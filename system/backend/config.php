@@ -1,5 +1,5 @@
 <?php
-$whitelist = array('127.0.0.1', "::1",'192.168.1.2');
+$whitelist = array('127.0.0.1','192.168.1.2', "::1");
 
 if(!in_array($_SERVER['REMOTE_ADDR'], $whitelist)){
     $servername = "localhost";

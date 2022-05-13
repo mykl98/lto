@@ -211,7 +211,7 @@ function renderQRCode(data){
     var qrCode = (function() {
         qr = new QRious({
             element: document.getElementById('qr_code'),
-            size: 400,
+            size: 300,
             value: qr
         });
     })();
