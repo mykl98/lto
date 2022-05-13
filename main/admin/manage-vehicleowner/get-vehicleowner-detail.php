@@ -5,7 +5,7 @@
         function getVehicleOwnerDetail($idx){
             global $conn;
             $data = array();
-            $table = "owner";
+            $table = "account";
             $sql = "SELECT * FROM `$table` WHERE idx='$idx'";
             if($result=mysqli_query($conn,$sql)){
                 if(mysqli_num_rows($result) > 0){

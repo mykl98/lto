@@ -4,7 +4,7 @@
 
         function deleteVehicleOwner($idx){
             global $conn;
-            $table = "owner";
+            $table = "account";
             $sql = "DELETE FROM `$table` WHERE idx='$idx'";
             if(mysqli_query($conn,$sql)){
                 return "true*_*";

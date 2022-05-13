@@ -4,9 +4,9 @@ if($_POST){
 
     function saveVehicleOwner($idx,$name,$address,$phone,$username,$status){
         global $conn;
-        $table = "owner";
+        $table = "account";
         if($idx == ""){
-            $sql = "INSERT INTO `$table` (name,address,phone,username,password,status) VALUES ('$name','$address','$phone','$username','123456','$status')";
+            $sql = "INSERT INTO `$table` (name,address,phone,username,password,access,status) VALUES ('$name','$address','$phone','$username','123456','owner','$status')";
         }else{
             $sql = "UPDATE `$table` SET name='$name',address='$address',phone='$phone',username='$username',status='$status' WHERE idx='$idx'";
         }

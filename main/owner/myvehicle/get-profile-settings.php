@@ -2,22 +2,22 @@
     if($_POST){
         include_once "../../../system/backend/config.php";
 
-        function getOwnerList(){
+        function getProfileSettings($idx){
             global $conn;
             $data = array();
             $table = "account";
-            $sql = "SELECT * FROM `$table` WHERE access='owner' ORDER by idx DESC";
+            $sql = "SELECT * FROM `$table` WHERE idx='$idx'";
             if($result=mysqli_query($conn,$sql)){
                 if(mysqli_num_rows($result) > 0){
-                    while($row=mysqli_fetch_array($result)){
-                        $value = new \StdClass();
-                        $value -> idx = $row["idx"];
-                        $value -> name = $row["name"];
-                        array_push($data,$value);
-                    }
+                    $row = mysqli_fetch_array($result);
+                    $value = new \StdClass();
+                    $value -> image = $row["image"];
+                    $value -> name = $row["name"];
+
+                    array_push($data,$value);
                 }
                 $data = json_encode($data);
-                return "true*_*".$data;
+                return "true*_*" . $data;
             }else{
                 return "System Error!";
             }
@@ -25,7 +25,8 @@
 
         session_start();
         if($_SESSION["isLoggedIn"] == "true"){
-            echo getOwnerList();
+            $idx = $_SESSION["loginidx"];
+            echo getProfileSettings($idx);
         }else{
             echo "Access Denied!";
         }

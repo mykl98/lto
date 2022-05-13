@@ -2,21 +2,16 @@
     if($_POST){
         include_once "../../../system/backend/config.php";
 
-        function getVehicleOwnerList(){
+        function getQRCode($idx){
             global $conn;
             $data = array();
-            $table = "account";
-            $sql = "SELECT * FROM `$table` WHERE access='owner' ORDER by idx DESC";
+            $table = "vehicle";
+            $sql = "SELECT qr FROM `$table` ORDER by idx DESC";
             if($result=mysqli_query($conn,$sql)){
                 if(mysqli_num_rows($result) > 0){
                     while($row=mysqli_fetch_array($result)){
                         $value = new \StdClass();
-                        $value -> idx = $row["idx"];
-                        $value -> name = $row["name"];
-                        $value -> address = $row["address"];
-                        $value -> phone = $row["phone"];
-                        $value -> username = $row["username"];
-                        $value -> status = $row["status"];
+                        $value -> qr = $row["qr"];
                         array_push($data,$value);
                     }
                 }
@@ -29,7 +24,8 @@
 
         session_start();
         if($_SESSION["isLoggedIn"] == "true"){
-            echo getVehicleOwnerList();
+            $idx = sanitize($_POST["idx"]);
+            echo getQRCode($idx);
         }else{
             echo "Access Denied!";
         }

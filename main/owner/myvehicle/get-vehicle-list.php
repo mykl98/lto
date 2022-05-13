@@ -27,11 +27,11 @@
             return $name;
         }
 
-        function getVehicleList(){
+        function getVehicleList($owner){
             global $conn;
             $data = array();
             $table = "vehicle";
-            $sql = "SELECT * FROM `$table` ORDER by idx DESC";
+            $sql = "SELECT * FROM `$table` WHERE owner='$owner' ORDER by idx DESC";
             if($result=mysqli_query($conn,$sql)){
                 if(mysqli_num_rows($result) > 0){
                     while($row=mysqli_fetch_array($result)){
@@ -40,7 +40,6 @@
                         $value -> platenumber = $row["platenumber"];
                         $value -> regdate = $row["regdate"];
                         $value -> expdate = $row["expdate"];
-                        $value -> owner = getOwnerName($row["owner"]);
                         $value -> ticket = getPendingTicketCount($row["qr"]);
                         array_push($data,$value);
                     }
@@ -54,7 +53,8 @@
 
         session_start();
         if($_SESSION["isLoggedIn"] == "true"){
-            echo getVehicleList();
+            $owner = $_SESSION["loginidx"];
+            echo getVehicleList($owner);
         }else{
             echo "Access Denied!";
         }

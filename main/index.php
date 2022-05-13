@@ -13,7 +13,7 @@ include_once "../system/backend/config.php";
                 exit();
                 break;
             case "owner":
-                header("location:owner/dashboard");
+                header("location:owner/myvehicle");
                 exit();
                 break;
         }
