@@ -2,10 +2,10 @@
     if($_POST){
         include_once "../../../system/backend/config.php";
 
-        function cancelViolation($idx){
+        function cancelViolation($loginIdx,$idx){
             global $conn;
             $table = "ticket";
-            $sql = "UPDATE `$table` SET status='cancelled' WHERE idx='$idx'";
+            $sql = "UPDATE `$table` SET status='cancelled',processedby='$loginIdx' WHERE idx='$idx'";
             if(mysqli_query($conn,$sql)){
                 return "true*_*";
             }else{
@@ -16,7 +16,8 @@
         session_start();
         if($_SESSION["isLoggedIn"] == "true"){
             $idx = sanitize($_POST["idx"]);
-            echo cancelViolation($idx);
+            $loginIdx = $_SESSION["loginidx"];
+            echo cancelViolation($loginIdx,$idx);
         }else{
             echo "Access Denied!";
         }

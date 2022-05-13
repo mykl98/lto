@@ -2,11 +2,11 @@
     if($_POST){
         include_once "../../../system/backend/config.php";
 
-        function getPendingTicketCount($qr){
+        function getPendingTicketCount($vehicleIdx){
             global $conn;
             $count = 0;
             $table = "ticket";
-            $sql = "SELECT * FROM `$table` WHERE qr='$qr' && status='pending'";
+            $sql = "SELECT * FROM `$table` WHERE vehicleidx='$vehicleIdx' && status='pending'";
             if($result=mysqli_query($conn,$sql)){
                 $count = mysqli_num_rows($result);
             }
@@ -41,7 +41,7 @@
                         $value -> regdate = $row["regdate"];
                         $value -> expdate = $row["expdate"];
                         $value -> owner = getOwnerName($row["owner"]);
-                        $value -> ticket = getPendingTicketCount($row["qr"]);
+                        $value -> ticket = getPendingTicketCount($row["idx"]);
                         array_push($data,$value);
                     }
                 }

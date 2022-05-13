@@ -103,6 +103,7 @@ function renderTicketList(data){
         }else if(status == "cancelled"){
             status = '<span class="badge badge-danger">Cancelled</span>';
         }else{
+            status = '<span class="badge badge-info">Pending</span>';
             button = '<button class="btn btn-success btn-sm" onclick="settleTicket(\''+ list.idx +'\')"><i class="fa fa-check"></i></button>\
                       <button class="btn btn-danger btn-sm" onclick="cancelTicket(\''+ list.idx +'\')"><i class="fa fa-times"></i></button>';
         }

@@ -1,19 +1,13 @@
 <?php
-$whitelist = array('127.0.0.1', "::1");
+$whitelist = array('127.0.0.1', "::1",'192.168.1.2');
 
 if(!in_array($_SERVER['REMOTE_ADDR'], $whitelist)){
-    /*$servername = "localhost";
+    $servername = "localhost";
 	$username = "u528264240_lto";
 	$password = "Skooltech_113012";
 	$dbname = "u528264240_lto";
 	$conn = new mysqli($servername, $username, $password, $dbname);
-	$baseUrl = "https://raptorapps.xyz/lto";*/
-	$servername = "localhost";
-	$username = "root";
-	$password = "";
-	$dbname = "lto";
-	$conn = new mysqli($servername, $username, $password, $dbname);
-	$baseUrl = "http://192.168.1.2/lto";
+	$baseUrl = "https://raptorapps.xyz/lto";
 }else{
 	$servername = "localhost";
 	$username = "root";

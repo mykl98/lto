@@ -30,11 +30,11 @@
             return $description;
         }
 
-        function getViolationList($idx){
+        function getViolationList($vehicleIdx){
             global $conn;
             $data = array();
             $table = "ticket";
-            $sql = "SELECT * FROM `$table` WHERE idx='$idx' ORDER by idx DESC";
+            $sql = "SELECT * FROM `$table` WHERE vehicleidx='$vehicleIdx' ORDER by idx DESC";
             if($result=mysqli_query($conn,$sql)){
                 if(mysqli_num_rows($result) > 0){
                     while($row=mysqli_fetch_array($result)){
@@ -44,6 +44,7 @@
                         $value -> time = $row["time"];
                         $value -> enforcer = getEnforcerName($row["enforcer"]);
                         $value -> violation = getViolationDescription($row["violation"]);
+                        $value -> status = $row["status"];
                         array_push($data,$value);
                     }
                 }

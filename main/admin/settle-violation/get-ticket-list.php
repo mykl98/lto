@@ -5,6 +5,9 @@
         function getAccountName($idx){
             global $conn;
             $name = "";
+            if($idx == ""){
+                return $name;
+            }
             $table = "account";
             $sql = "SELECT name FROM `$table` WHERE idx='$idx'";
             if($result=mysqli_query($conn,$sql)){
@@ -60,7 +63,7 @@
                         $value -> platenumber = getVehiclePlateNumber($row["vehicleidx"]);
                         $value -> violation = getViolationDescription($row["violation"]);
                         $value -> status = $row["status"];
-                        $value -> proccessedby = getAccountName($row["processedby"]);
+                        $value -> processedby = getAccountName($row["processedby"]);                      
                         array_push($data,$value);
                     }
                 }

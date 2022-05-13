@@ -5,8 +5,8 @@
         function getVehicleOwnerCount(){
             global $conn;
             $count = 0;
-            $table = "owner";
-            $sql = "SELECT idx FROM `$table`";
+            $table = "account";
+            $sql = "SELECT idx FROM `$table` WHERE access='owner'";
             if($result=mysqli_query($conn,$sql)){
                 $count = mysqli_num_rows($result);
             }

@@ -153,16 +153,26 @@ function renderViolationList(data){
                                 <th>Date</th>\
                                 <th>Time</th>\
                                 <th>Enforcer</th>\
-                                <th>Violation Description</th>\
+                                <th>Violation</th>\
+                                <th>Status</th>\
                             </tr>\
                         </thead>\
                         <tbody>';
     lists.forEach(function(list){
+        var status = list.status;
+        if(status == "settled"){
+            status = '<span class="badge badge-success">Settled</span>';
+        }else if(status == "cancelled"){
+            status = '<span class="badge badge-danger">Cancelled</span>';
+        }else{
+            status = '<span class="badge badge-info">Pending</span>';
+        }
         markUp += '<tr>\
                         <td>'+list.date+'</td>\
                         <td>'+list.time+'</td>\
                         <td>'+list.enforcer+'</td>\
                         <td>'+list.violation+'</td>\
+                        <td>'+status+'</td>\
                    </tr>';
     })
     markUp += '</tbody></table>';

@@ -104,8 +104,81 @@
                             </div>
                             <div class="card-body">
                                 <div class="">
-                                    <div id="qr-reader" style="width:500px"></div>
-                                    <div id="qr-reader-results"></div>
+                                    <div id="qr-reader-page" align="center">
+                                        <div id="qr-reader" style="width:300px"></div>
+                                    </div>
+                                    <div id="result-page">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div align="center">
+                                                    <input type="file" accept="image/*" onchange="loadVehicleImage(event)" style="display:none;" id="load-vehicle-image-btn">
+                                                    <img id="vehicle-image" class="rounded" width="250" src="<?php echo $baseUrl;?>/system/images/no-image-available.jpg" onclick="$('#load-vehicle-image-btn').click()">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="vehicle-platenumber" class="col-form-label">Plate Number:</label>
+                                                    <input type="text" class="form-control" id="vehicle-platenumber" readonly>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="vehicle-brand" class="col-form-label">Brand:</label>
+                                                    <input type="text" class="form-control" id="vehicle-brand" readonly>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="vehicle-model" class="col-form-label">model:</label>
+                                                    <input type="text" class="form-control" id="vehicle-model" readonly>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="vehicle-chassis" class="col-form-label">Chassis Number:</label>
+                                                    <input type="text" class="form-control" id="vehicle-chassis" readonly>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="vehicle-engine" class="col-form-label">Engine Number:</label>
+                                                    <input type="text" class="form-control" id="vehicle-engine" readonly>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="vehicle-color" class="col-form-label">Paint Color:</label>
+                                                    <input type="text" class="form-control" id="vehicle-color" readonly>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="vehicle-regdate" class="col-form-label">Registration Date:</label>
+                                                    <input type="date" class="form-control" id="vehicle-regdate" readonly>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="vehicle-expdate" class="col-form-label">Expiration Date:</label>
+                                                    <input type="date" class="form-control" id="vehicle-expdate" readonly>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="vehicle-owner" class="col-form-label">Owner:</label>
+                                                    <input type="text" class="form-control" id="vehicle-owner" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="ticket-card">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-header">
+                                <!--h3 class="card-title">Violation Tickets</h3-->
+                                <button class="btn btn-sm bg-danger float-right" onclick="addViolation()"><span class="fa fa-Plus"></span> Add Violation</button>
+                                <div class="input-group input-group-sm w-50">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-success">Filter</span>
+                                    </div>
+                                    <select class="" id="violation-filter" onchange="violationFilterChange()">
+                                        <option value="all">ALL</optio>
+                                        <option value="pending">Pending</option>
+                                        <option value="settled">Settled</option>
+                                        <option value="cancelled">Cancelled</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <div id="ticket-table-container"></div>
                                 </div>
                             </div>
                         </div>
@@ -122,6 +195,23 @@
         </footer>
     </div>
     <!-- ./wrapper -->
+
+    <!-- Add Violation Modal -->
+    <div class="modal fade" id="add-violation-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Select Violation Ticket</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="clearAddEditAccountModal()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="violation-table-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Logout Modal -->
     <div class="modal fade" id="logout-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
