@@ -5,7 +5,7 @@
     $password = "";
     if(isset($_SESSION["isLoggedIn"])){
         if($_SESSION["isLoggedIn"] == "true"){
-            header("location:main");
+            header("location:main/index.php");
             exit();
         }
     }
@@ -30,7 +30,7 @@
                     $_SESSION["isLoggedIn"] = "true";
                     $_SESSION["access"] = $access;
                     $_SESSION["loginidx"] = $idx;
-                    header("location:main");
+                    header("location:main/index.php");
                     exit();
                 }else{
                     $error = "*Username or Password is invalid!";

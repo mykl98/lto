@@ -103,8 +103,10 @@
                                 <button class="btn btn-sm bg-success float-right" onclick="scanQRCode()"><span class="fa fa-qrcode"></span> Scan QR Code</button>
                             </div>
                             <div class="card-body">
-                                <div id="qr-reader" style="width:500px"></div>
-                                <div id="markup"></div>
+                                <div class="">
+                                    <div id="qr-reader" style="width:500px"></div>
+                                    <div id="markup"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
