@@ -9,16 +9,19 @@ Version: 1.0
 /*@import url('https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700,900');*/
 
 /* ======= General Rules ======== */
-@media only screen and (max-width:600px){
-    #title{
-        display: none;
-    }
-}
 html {
     width: 100%;
     margin: 0;
     padding: 0;
     scroll-behavior: smooth;
+}
+
+.page{
+    display: none;
+}
+
+.size-12{
+    font-size: 12px;
 }
 
 ul {
@@ -223,7 +226,7 @@ table tbody tr td {
 }
 
 .logo {
-    font-size: 23px;
+    font-size: 20px;
     font-weight: 500;
     color: #fff !important;
 }
@@ -1562,7 +1565,7 @@ span.tag.label.label-info {
 /*===========Login page CSS Rules===========*/
 
 .login-body {
-    background: url('system/images/login-background.jpeg');
+    background: url('../img/tarred.jpeg');
     background-attachment: fixed;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -2178,8 +2181,7 @@ span.tag.label.label-info {
         display: block;
         min-width: 100%;
         width: 100%;
-        background: #0D47A1;
-        padding: 10px 7px;
+        background: #28A745;
         margin: 0px;
     }
 
