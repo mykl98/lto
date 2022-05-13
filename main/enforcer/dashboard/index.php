@@ -105,7 +105,7 @@
                             <div class="card-body">
                                 <div class="">
                                     <div id="qr-reader" style="width:500px"></div>
-                                    <div id="markup"></div>
+                                    <div id="qr-reader-results"></div>
                                 </div>
                             </div>
                         </div>
