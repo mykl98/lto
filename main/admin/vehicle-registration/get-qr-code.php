@@ -6,7 +6,7 @@
             global $conn;
             $data = array();
             $table = "vehicle";
-            $sql = "SELECT qr FROM `$table` ORDER by idx DESC";
+            $sql = "SELECT qr FROM `$table` WHERE idx='$idx'";
             if($result=mysqli_query($conn,$sql)){
                 if(mysqli_num_rows($result) > 0){
                     while($row=mysqli_fetch_array($result)){
