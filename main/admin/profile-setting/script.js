@@ -185,7 +185,7 @@ function logout(){
         success: function(response){
             var resp = response.split("*_*");
             if(resp[0] == "true"){
-                window.open(baseUrl + "/index.php","_self")
+                window.open("../../../index.php","_self")
             }else if(resp[0] == "false"){
                 alert(resp[1]);
             } else{
