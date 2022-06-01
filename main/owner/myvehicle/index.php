@@ -99,6 +99,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Vehicle List</h3>
+                                <button class="btn btn-sm bg-success float-right" onclick="addVehicle()"><span class="fa fa-plus"></span> Add Vehicle</button>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -119,6 +120,76 @@
         </footer>
     </div>
     <!-- ./wrapper -->
+
+    <!-- Modals -->
+    <div class="modal fade" id="add-edit-vehicle-modal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="add-edit-vehicle-modal-title">Create New Vehicle Registration</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+                            <div class="col">
+                                <div align="center">
+                                    <input type="file" accept="image/*" onchange="loadVehicleImage(event)" style="display:none;" id="load-vehicle-image-btn">
+                                    <img id="vehicle-image" class="rounded" width="250" src="<?php echo $baseUrl;?>/system/images/no-image-available.jpg" onclick="$('#load-vehicle-image-btn').click()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="vehicle-platenumber" class="col-form-label">Plate Number:</label>
+                                    <input type="text" class="form-control" id="vehicle-platenumber">
+                                </div>
+                                <div class="form-group">
+                                    <label for="vehicle-brand" class="col-form-label">Brand:</label>
+                                    <input type="text" class="form-control" id="vehicle-brand">
+                                </div>
+                                <div class="form-group">
+                                    <label for="vehicle-model" class="col-form-label">model:</label>
+                                    <input type="text" class="form-control" id="vehicle-model">
+                                </div>
+                                <div class="form-group">
+                                    <label for="vehicle-chassis" class="col-form-label">Chassis Number:</label>
+                                    <input type="text" class="form-control" id="vehicle-chassis">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="vehicle-engine" class="col-form-label">Engine Number:</label>
+                                    <input type="text" class="form-control" id="vehicle-engine">
+                                </div>
+                                <div class="form-group">
+                                    <label for="vehicle-color" class="col-form-label">Paint Color:</label>
+                                    <input type="text" class="form-control" id="vehicle-color">
+                                </div>
+                                <div class="form-group">
+                                    <label for="vehicle-regdate" class="col-form-label">Registration Date:</label>
+                                    <input type="date" class="form-control" id="vehicle-regdate">
+                                </div>
+                                <div class="form-group">
+                                    <label for="vehicle-expdate" class="col-form-label">Expiration Date:</label>
+                                    <input type="date" class="form-control" id="vehicle-expdate">
+                                </div>
+                                <div id="owner-select-container"></div>
+                            </div>
+                        </div>
+                    </form>
+                    <p id="add-edit-vehicle-modal-error" class="text-danger font-italic small"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="saveVehicle()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- View Violation Modal -->
     <div class="modal fade" id="view-violation-modal">

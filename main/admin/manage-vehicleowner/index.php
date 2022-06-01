@@ -99,7 +99,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Vehicle Owner List</h3>
-                                <button class="btn btn-sm bg-success float-right" onclick="addVehicleOwner()"><span class="fa fa-plus"></span> Add Vehicle Owner</button>
+                                <!--button class="btn btn-sm bg-success float-right" onclick="addVehicleOwner()"><span class="fa fa-plus"></span> Add Vehicle Owner</button-->
                             </div>
                             <div class="card-body">
                                 <div id="vehicleowner-table-container"></div>

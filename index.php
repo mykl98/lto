@@ -58,7 +58,6 @@
     <!--Bootstrap CSS-->
     <link rel="stylesheet" href="system/plugin/bootstrap/css/bootstrap.min.css">
     <!--Custom style.css-->
-    <link rel="stylesheet" href="system/plugin/quick-sand/css/quicksand.css">
     <link rel="stylesheet" href="style.css">
     <!--Font Awesome-->
     <link rel="stylesheet" href="system/plugin/fontawesome/css/fontawesome-all.min.css">
@@ -103,6 +102,7 @@
                             </a>
                             <input type="submit" class="btn btn-theme btn-block p-2 mb-1" value="Login">
                         </div>
+                        <p>Don't have an account?<a class="text-info" href="sign-up.php"> Sign Up</a></p>
                     </form>
                 </div>
             </div>

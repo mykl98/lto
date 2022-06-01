@@ -93,7 +93,7 @@ function renderVehicleList(data){
                                 <th>Expiration Date</th>\
                                 <th>Violation Ticket</th>\
                                 <th>Status</th>\
-                                <th style="max-width:50px;min-width:50px;">Action</th>\
+                                <th style="max-width:120px;min-width:120px;">Action</th>\
                             </tr>\
                         </thead>\
                         <tbody>';
@@ -116,12 +116,147 @@ function renderVehicleList(data){
                         <td>\
                             <button class="btn btn-warning btn-sm" onclick="viewViolation(\''+ list.idx +'\')"><i class="fa fa-eye"></i></button>\
                             <button class="btn btn-dark btn-sm" onclick="viewQRCode(\''+ list.idx +'\')"><i class="fa fa-qrcode"></i></button>\
+                            <button class="btn btn-success btn-sm" onclick="editVehicle(\''+ list.idx +'\')"><i class="fa fa-pencil"></i></button>\
+                            <button class="btn btn-danger btn-sm" onclick="deleteVehicle(\''+ list.idx +'\')"><i class="fas fa-trash"></i></button>\
                         </td>\
                    </tr>';
     })
     markUp += '</tbody></table>';
     $("#vehicle-table-container").html(markUp);
     $("#vehicle-table").DataTable();
+}
+
+function addVehicle(){
+    vehicleIdx = "";
+    $("#vehicle-image").attr("src", baseUrl + "/system/images/no-image-available.jpg");
+    $("#add-edit-vehicle-modal").modal("show");
+    $("#add-edit-vehicle-modal-title").text("Add New Vehicle");
+    $("#add-edit-vehicle-modal-error").text("");
+}
+
+function saveVehicle(){
+    var image = $("#vehicle-image").attr("src");
+    var plateNumber = $("#vehicle-platenumber").val();
+    var brand = $("#vehicle-brand").val();
+    var model = $("#vehicle-model").val();
+    var chassis = $("#vehicle-chassis").val();
+    var engine = $("#vehicle-engine").val();
+    var color = $("#vehicle-color").val();
+    var regDate = $("#vehicle-regdate").val();
+    var expDate = $("#vehicle-expdate").val();
+    var error = "";
+
+    if(plateNumber == "" || plateNumber == undefined){
+        error = "*Plate Number field should not be empty.";
+    }else if(brand == "" || brand == undefined){
+        error = "*Brand field should not be empty.";
+    }else if(model == "" || model == undefined){
+        error = "*Model field should not be empty.";
+    }else if(chassis == "" || chassis == undefined){
+        error = "*Chassis Number field should not be empty.";
+    }else if(engine == "" || engine == undefined){
+        error = "*Engine Number field should not be empty.";
+    }else if(color == "" || color == undefined){
+        error = "*Vehicle Color field should not be empty.";
+    }else if(regDate == "" || regDate == undefined){
+        error = "*Registration Date field should not be empty.";
+    }else if(expDate == "" || expDate == undefined){
+        error = "*Expiration Date field should not be empty.";
+    }else{
+        $.ajax({
+            type: "POST",
+            url: "save-vehicle.php",
+            dataType: 'html',
+            data: {
+                idx:vehicleIdx,
+                image:image,
+                platenumber:plateNumber,
+                brand:brand,
+                model:model,
+                chassis:chassis,
+                engine:engine,
+                color:color,
+                regdate:regDate,
+                expdate:expDate
+            },
+            success: function(response){
+                var resp = response.split("*_*");
+                if(resp[0] == "true"){
+                    $("#add-edit-vehicle-modal").modal("hide");
+                    getVehicleList();
+                }else if(resp[0] == "false"){
+                    alert(resp[1]);
+                } else{
+                    alert(response);
+                }
+            }
+        });
+    }
+
+    $("#add-edit-vehicle-modal-error").text(error);
+}
+
+function editVehicle(idx){
+    vehicleIdx = idx;
+    $.ajax({
+        type: "POST",
+        url: "get-vehicle-detail.php",
+        dataType: 'html',
+        data: {
+            idx:vehicleIdx
+        },
+        success: function(response){
+            var resp = response.split("*_*");
+            if(resp[0] == "true"){
+                renderEditVehicle(resp[1]);
+            }else if(resp[0] == "false"){
+                alert(resp[1]);
+            } else{
+                alert(response);
+            }
+        }
+    });
+}
+
+function renderEditVehicle(data){
+    var lists = JSON.parse(data); 
+    lists.forEach(function(list){
+        $("#vehicle-image").attr("src",list.image);
+        $("#vehicle-platenumber").val(list.platenumber);
+        $("#vehicle-brand").val(list.brand);
+        $("#vehicle-model").val(list.model);
+        $("#vehicle-chassis").val(list.chassis);
+        $("#vehicle-engine").val(list.engine);
+        $("#vehicle-color").val(list.color);
+        $("#vehicle-regdate").val(list.regdate);
+        $("#vehicle-expdate").val(list.expdate);
+    })
+    $("#add-edit-vehicle-modal-title").text("Edit Vehicle Details");
+    $("#add-edit-vehicle-modal-error").text("");
+    $("#add-edit-vehicle-modal").modal("show");
+}
+
+function deleteVehicle(idx){
+    if(confirm("Are you sure you want to delete this Vehicle Registration?\nThis Action cannot be undone!")){
+        $.ajax({
+            type: "POST",
+            url: "delete-vehicle.php",
+            dataType: 'html',
+            data: {
+                idx:idx
+            },
+            success: function(response){
+                var resp = response.split("*_*");
+                if(resp[0] == "true"){
+                    getVehicleList();
+                }else if(resp[0] == "false"){
+                    alert(resp[1]);
+                } else{
+                    alert(response);
+                }
+            }
+        });
+    }
 }
 
 function viewViolation(idx){

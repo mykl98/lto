@@ -100,7 +100,6 @@ function renderVehicleOwnerList(data){
                         <td>'+list.username+'</td>\
                         <td>'+list.status+'</td>\
                         <td>\
-                            <button class="btn btn-success btn-sm" onclick="editVehicleOwner(\''+ list.idx +'\')"><i class="fa fa-pencil"></i></button>\
                             <button class="btn btn-danger btn-sm" onclick="deleteVehicleOwner(\''+ list.idx +'\')"><i class="fas fa-trash"></i></button>\
                         </td>\
                    </tr>';
