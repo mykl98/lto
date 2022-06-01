@@ -15,6 +15,10 @@ $(document).on('collapsed.lte.pushmenu', function(){
     $("#global-client-logo").attr("width","40px");
 })
 
+$(document).on('hidden.bs.modal', '.modal', function () {
+    $('.modal.show').length && $(document.body).addClass('modal-open');
+});
+
 getUserDetails();
 getVehicleList()
 
@@ -352,6 +356,44 @@ function renderQRCode(data){
     })();
 
     $("#view-qr-modal").modal("show");
+}
+
+var vehicleImage;
+var reader;
+var loadVehicleImage = function(event){
+	reader = new FileReader();
+	reader.onload = function(e) {
+		$('#vehicle-image-editor-buffer').attr('src', e.target.result);
+
+        if(vehicleImage){
+            vehicleImage.destroy();
+        }
+
+		vehicleImage = new Croppie($('#vehicle-image-editor-buffer')[0], {
+			viewport: { width: 300, height: 300,type:'square'},
+			boundary: { width: 400, height: 400 },
+            enableOrientation: true
+		});
+
+        $('#vehicle-image-editor-modal').modal('show');
+		$('#vehicle-image-editor-ok-btn').on('click', function() {
+			vehicleImage.result('base64').then(function(dataImg) {
+				var data = [{ image: dataImg }, { name: 'myimage.jpg' }];
+				$('#vehicle-image').attr('src', dataImg);
+			});
+		});
+	}
+	reader.readAsDataURL(event.target.files[0]);
+}
+
+function vehicleImageEditorCancel(){
+	if(vehicleImage){
+		vehicleImage.destroy();
+    }
+}
+
+function vehicleImageEditorRotate(){
+	vehicleImage.rotate(-90);
 }
 
 function logout(){
