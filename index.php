@@ -102,7 +102,7 @@
                             </a>
                             <input type="submit" class="btn btn-theme btn-block p-2 mb-1" value="Login">
                         </div>
-                        <p>Don't have an account?<a class="text-info" href="sign-up.php"> Sign Up</a></p>
+                        <!--p>Don't have an account?<a class="text-info" href="sign-up.php"> Sign Up</a></p-->
                     </form>
                 </div>
             </div>

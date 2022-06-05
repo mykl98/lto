@@ -97,7 +97,7 @@ function renderVehicleList(data){
                                 <th>Expiration Date</th>\
                                 <th>Violation Ticket</th>\
                                 <th>Status</th>\
-                                <th style="max-width:120px;min-width:120px;">Action</th>\
+                                <th style="max-width:50px;min-width:50px;">Action</th>\
                             </tr>\
                         </thead>\
                         <tbody>';
@@ -120,8 +120,8 @@ function renderVehicleList(data){
                         <td>\
                             <button class="btn btn-warning btn-sm" onclick="viewViolation(\''+ list.idx +'\')"><i class="fa fa-eye"></i></button>\
                             <button class="btn btn-dark btn-sm" onclick="viewQRCode(\''+ list.idx +'\')"><i class="fa fa-qrcode"></i></button>\
-                            <button class="btn btn-success btn-sm" onclick="editVehicle(\''+ list.idx +'\')"><i class="fa fa-pencil"></i></button>\
-                            <button class="btn btn-danger btn-sm" onclick="deleteVehicle(\''+ list.idx +'\')"><i class="fas fa-trash"></i></button>\
+                            <!--button class="btn btn-success btn-sm" onclick="editVehicle(\''+ list.idx +'\')"><i class="fa fa-pencil"></i></button>\
+                            <button class="btn btn-danger btn-sm" onclick="deleteVehicle(\''+ list.idx +'\')"><i class="fas fa-trash"></i></button-->\
                         </td>\
                    </tr>';
     })

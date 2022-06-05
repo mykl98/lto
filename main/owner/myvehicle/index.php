@@ -101,7 +101,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Vehicle List</h3>
-                                <button class="btn btn-sm bg-success float-right" onclick="addVehicle()"><span class="fa fa-plus"></span> Add Vehicle</button>
+                                <!--button class="btn btn-sm bg-success float-right" onclick="addVehicle()"><span class="fa fa-plus"></span> Add Vehicle</button-->
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
