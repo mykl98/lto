@@ -72,7 +72,7 @@
 
     <div class="container-fluid login-wrapper">
         <div class="login-box">
-            <h1 class="text-center mb-5" id="title">An integrated web and mobile application for vehicle checkpoint using QR Code</h1>    
+            <h1 class="text-center mb-5" id="title">AN INTEGRATED WEB AND MOBILE APPLICATION FOR VEHICLE CHECKPOINT USING QR CODE</h1>    
             <div class="row">
                 <div class="col-md-6 col-sm-6 col-12 login-box-info">
                     <h3 class="mb-4">Welcome Back!</h3>
